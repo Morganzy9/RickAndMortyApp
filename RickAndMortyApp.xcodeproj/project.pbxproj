@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16229CDF2AF6349300C5A295 /* RMCustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16229CDE2AF6349300C5A295 /* RMCustomTabBar.swift */; };
 		162CD5852AF29B5E008E5580 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162CD5842AF29B5E008E5580 /* Constants.swift */; };
 		167ED9C12AECC77B004B809A /* RMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167ED9C02AECC77B004B809A /* RMService.swift */; };
 		167ED9C32AECC78E004B809A /* RMRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167ED9C22AECC78E004B809A /* RMRequest.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16229CDE2AF6349300C5A295 /* RMCustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCustomTabBar.swift; sourceTree = "<group>"; };
 		162CD5842AF29B5E008E5580 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		167ED9C02AECC77B004B809A /* RMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMService.swift; sourceTree = "<group>"; };
 		167ED9C22AECC78E004B809A /* RMRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMRequest.swift; sourceTree = "<group>"; };
@@ -73,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16229CE02AF6428D00C5A295 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				16C0C5052AEA9244005C9E10 /* RMTabViewController.swift */,
+				16229CDE2AF6349300C5A295 /* RMCustomTabBar.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		162CD5832AF29B31008E5580 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +193,7 @@
 		16C0C5262AEAB2A1005C9E10 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				16C0C5052AEA9244005C9E10 /* RMTabViewController.swift */,
+				16229CE02AF6428D00C5A295 /* TabBar */,
 				16C0C5272AEAB2EE005C9E10 /* RMCharacterViewController.swift */,
 				16C0C5292AEAB379005C9E10 /* RMLocationViewController.swift */,
 				16C0C52B2AEAB3A8005C9E10 /* RMEpisodeViewController.swift */,
@@ -320,6 +331,7 @@
 				167ED9C12AECC77B004B809A /* RMService.swift in Sources */,
 				16C687E92AF15D020091C84A /* UiView.swift in Sources */,
 				16C0C5232AEAB21A005C9E10 /* RMCharacter.swift in Sources */,
+				16229CDF2AF6349300C5A295 /* RMCustomTabBar.swift in Sources */,
 				16C687E32AF14FF60091C84A /* CharactersListViewViewModel.swift in Sources */,
 				167ED9C52AED25EC004B809A /* RMEndpoint.swift in Sources */,
 				16C0C5042AEA9244005C9E10 /* SceneDelegate.swift in Sources */,
