@@ -8,7 +8,7 @@
 import UIKit
 
 // View handle showing list of Characters, loader
-final class CharactesListView: UIView {
+final class RMCharactesListView: UIView {
     
     //  MARK: - Private Constants
     
@@ -30,7 +30,7 @@ final class CharactesListView: UIView {
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.CellID.charactersCollectionViewCell)
+        collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: Constants.CellID.charactersCollectionViewCell)
         return collectionView
     }()
     
@@ -53,7 +53,7 @@ final class CharactesListView: UIView {
     }
 }
 
-extension CharactesListView {
+extension RMCharactesListView {
     
     //  MARK: - Private Functions
     

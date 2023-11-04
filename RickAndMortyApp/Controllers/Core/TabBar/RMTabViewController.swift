@@ -38,6 +38,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
     }
     
     private func setTabBarAppearance() {
+        self.tabBar.backgroundColor = .secondarySystemBackground
         self.setValue(customTabBar, forKey: "TabBar")
         self.tabBar.tintColor = .green
         self.tabBar.unselectedItemTintColor = .black

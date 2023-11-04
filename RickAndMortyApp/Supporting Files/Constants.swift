@@ -11,7 +11,7 @@ import UIKit.UIScreen
 struct Constants {
     
     struct CellID {
-        static let charactersCollectionViewCell = "charactersCollectionViewCell"
+        static let charactersCollectionViewCell = "RMCharacterCollectionViewCell"
     }
     
     struct DeviceSizes {

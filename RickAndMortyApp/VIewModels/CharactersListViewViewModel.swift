@@ -13,7 +13,7 @@ final class CharactersListViewViewModel: NSObject {
         RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharacterResponse.self) { result in
             switch result {
             case .success(let success):
-                print(String(describing: success))
+                print("DEBUG CONSOLE: SUCCESS")
             case .failure(let failure):
                 print(String(describing: failure))
             }
@@ -31,9 +31,12 @@ extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let charactersCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellID.charactersCollectionViewCell, for: indexPath)
+        guard let charactersCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellID.charactersCollectionViewCell, for: indexPath) as? RMCharacterCollectionViewCell else {
+            fatalError("Error during dequeue CharacterCell")
+        }
+        let viewModel = RMCharacterCollectionViewCellViewModel(characterName: "Rick", characterStatus: .alive, characterImageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"))
         
-        charactersCell.backgroundColor = .systemGreen
+        charactersCell.configureCell(with: viewModel)
         
         return charactersCell
     }
