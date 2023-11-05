@@ -54,6 +54,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
         ]
         
         let tabBarIcons = ["person", "globe", "tv", "gear"]
+        let tabBarTitles = ["Characters", "Locations", "Episodes", "Settings"]
         
         for (index, viewController) in viewControllers.enumerated() {
             viewController.navigationItem.largeTitleDisplayMode = .automatic
@@ -62,7 +63,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
             
             navigationController.navigationBar.prefersLargeTitles = true
             
-            navigationController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(systemName: tabBarIcons[index]), tag: index)
+            navigationController.tabBarItem = UITabBarItem(title: tabBarTitles[index], image: UIImage(systemName: tabBarIcons[index]), tag: index)
             
             viewControllers[index] = navigationController
         }
@@ -81,8 +82,6 @@ extension RMTabViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController) {
-            print("Selected tab index: \(selectedIndex)")
-            
             animateTabSelection(selectedIndex)
         }
     }
