@@ -21,8 +21,12 @@ final class RMCharacterCollectionViewCellViewModel {
         self.characterStatus = characterStatus
     }
     
-    var getCharacterStatus: String {
-        return characterStatus.rawValue
+    var getCharacterStatusString: String {
+        return "Status: \(characterStatus.status)"
+    }
+    
+    var getCharacterStatus: RMCharacterStatus {
+        return characterStatus
     }
     
     func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {

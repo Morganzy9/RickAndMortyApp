@@ -47,9 +47,9 @@ final class RMCharactesListView: UIView {
     
     private func setView() {
         setNavigation()
+        setDelegates()
         addSubViews()
         setConstrains()
-        setCharacctersCollectionView()
     }
 }
 
@@ -64,18 +64,10 @@ extension RMCharactesListView {
         viewModel.fetchCharacters()
     }
     
-    private func setCharacctersCollectionView() {
+    private func setDelegates() {
         charactersCollectionView.dataSource = viewModel
         charactersCollectionView.delegate = viewModel
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.spinner.stopAnimating()
-            self.charactersCollectionView.isHidden = false
-            
-            UIView.animate(withDuration: 0.4) {
-                self.charactersCollectionView.alpha = 1
-            }
-        }
+        viewModel.delegate = self
     }
     
     private func addSubViews() {
@@ -96,5 +88,16 @@ extension RMCharactesListView {
         
         ])
         
+    }
+}
+
+extension RMCharactesListView: CharactersListViewViewModelDelegate {
+    func didLoadInitialCharacters() {
+        spinner.stopAnimating()
+        charactersCollectionView.isHidden = false
+        charactersCollectionView.reloadData()
+        UIView.animate(withDuration: 0.4) {
+            self.charactersCollectionView.alpha = 1
+        }
     }
 }
