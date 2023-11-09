@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol RMCharacterListViewDelegate: AnyObject {
+    func rmCharacterListView(_ characterListView: RMCharacteListView, didSelectCharacter character: RMCharacter)
+}
+
 // View handle showing list of Characters, loader
-final class RMCharactesListView: UIView {
+final class RMCharacteListView: UIView {
+    
+    //  MARK: - Public
+    
+    public weak var delegate: RMCharacterListViewDelegate?
     
     //  MARK: - Private Constants
     
-    private let viewModel = CharactersListViewViewModel()
+    private let viewModel = RMCharactersListViewViewModel()
     
     //  MARK: - UI Elements
     
@@ -25,7 +33,7 @@ final class RMCharactesListView: UIView {
     
     private let charactersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.alpha = 0
@@ -53,7 +61,7 @@ final class RMCharactesListView: UIView {
     }
 }
 
-extension RMCharactesListView {
+extension RMCharacteListView {
     
     //  MARK: - Private Functions
     
@@ -91,7 +99,8 @@ extension RMCharactesListView {
     }
 }
 
-extension RMCharactesListView: CharactersListViewViewModelDelegate {
+extension RMCharacteListView: RMCharactersListViewViewModelDelegate {
+    
     func didLoadInitialCharacters() {
         spinner.stopAnimating()
         charactersCollectionView.isHidden = false
@@ -99,5 +108,9 @@ extension RMCharactesListView: CharactersListViewViewModelDelegate {
         UIView.animate(withDuration: 0.4) {
             self.charactersCollectionView.alpha = 1
         }
+    }
+    
+    func didSelectCharacter(_ character: RMCharacter) {
+        delegate?.rmCharacterListView(self, didSelectCharacter: character)
     }
 }

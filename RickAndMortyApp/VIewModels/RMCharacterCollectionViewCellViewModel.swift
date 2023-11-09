@@ -9,7 +9,7 @@ import UIKit
 
 final class RMCharacterCollectionViewCellViewModel {
     
-    let characterName: String
+    private let characterName: String
     private let characterStatus: RMCharacterStatus
     private let characterImageURL: URL?
     
@@ -19,6 +19,10 @@ final class RMCharacterCollectionViewCellViewModel {
         self.characterName = characterName
         self.characterImageURL = characterImageURL
         self.characterStatus = characterStatus
+    }
+    
+    var getCharacterNameString: String {
+        return characterName
     }
     
     var getCharacterStatusString: String {
