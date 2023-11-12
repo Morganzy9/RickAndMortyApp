@@ -10,8 +10,9 @@ import UIKit.UIScreen
 
 struct Constants {
     
-    struct CellID {
+    struct Identifiers {
         static let charactersCollectionViewCell = "RMCharacterCollectionViewCell"
+        static let footerLoadingCollectionReusableViewID = "RMFooterLoadingCollectionReusableView"
     }
     
     struct DeviceSizes {
