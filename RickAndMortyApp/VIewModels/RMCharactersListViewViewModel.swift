@@ -9,6 +9,7 @@ import UIKit
 
 protocol RMCharactersListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
+    func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
     func didSelectCharacter(_ character: RMCharacter)
 }
 
@@ -16,8 +17,9 @@ final class RMCharactersListViewViewModel: NSObject {
     
     weak var delegate: RMCharactersListViewViewModelDelegate?
     
-    //  MARK: - Private Variables
+    //  MARK: - Variables
     
+    //  MARK: Private
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
@@ -25,7 +27,10 @@ final class RMCharactersListViewViewModel: NSObject {
                     characterName: character.name,
                     characterStatus: character.status,
                     characterImageURL: URL(string: character.image))
-                cellViewModel.append(viewModel)
+                
+                if !cellViewModel.contains(viewModel) {
+                    cellViewModel.append(viewModel)
+                }
             }
         }
     }
@@ -36,17 +41,25 @@ final class RMCharactersListViewViewModel: NSObject {
     
     private var isLoadingMoreCharacters = false
     
+    //  MARK: Public
+    
+    var shouldShowLoadMoreIndicator: Bool {
+        return apiInfo?.next != nil
+    }
+    
+    
+    //  MARK: - Functions
+    
     func fetchCharacters() {
         RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
-            guard let self = self else { return }
+            guard let strongSelf = self else { return }
             switch result {
             case .success(let model):
                 let charactersResults = model.results
-                let info = model.info
-                self.apiInfo = info
-                self.characters = charactersResults
+                strongSelf.apiInfo =  model.info
+                strongSelf.characters = charactersResults
                 DispatchQueue.main.async {
-                    self.delegate?.didLoadInitialCharacters()
+                    strongSelf.delegate?.didLoadInitialCharacters()
                 }
             case .failure(let failure):
                 print(String(describing: failure))
@@ -56,12 +69,35 @@ final class RMCharactersListViewViewModel: NSObject {
     
     
     /// Fetch Additional Characters if needed
-    func fetchAdditionalCharacters() {
+    func fetchAdditionalCharacters(with url: URL) {
+        guard !isLoadingMoreCharacters else { return }
         isLoadingMoreCharacters = true
-    }
-    
-    var shouldShowLoadMoreIndicator: Bool {
-        return apiInfo?.next != nil
+        guard let request = RMRequest(url: url) else { 
+            isLoadingMoreCharacters = false
+            return
+        }
+        
+        RMService.shared.execute(request, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .success(let model):
+                let moreResults = model.results
+                strongSelf.apiInfo = model.info
+                
+                let newCount = moreResults.count
+                let startingIndex = (strongSelf.characters.count + newCount) - newCount
+                let indexPathsToAdd: [IndexPath] = Array(startingIndex ..< (startingIndex + newCount)).compactMap { return IndexPath(row: $0, section: 0)}
+                
+                strongSelf.characters.append(contentsOf: moreResults)
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    strongSelf.isLoadingMoreCharacters = false
+                }
+            case .failure(let failure):
+                print(String(describing: failure))
+                strongSelf.isLoadingMoreCharacters = false
+            }
+        }
     }
     
 }
@@ -95,7 +131,7 @@ extension RMCharactersListViewViewModel: UICollectionViewDataSource, UICollectio
         
         guard kind == UICollectionView.elementKindSectionFooter,
               let footer = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind, 
+                ofKind: kind,
                 withReuseIdentifier: Constants.Identifiers.footerLoadingCollectionReusableViewID,
                 for: indexPath) as? RMFooterLoadingCollectionReusableView else { fatalError("Unsupported") }
         
@@ -121,13 +157,21 @@ extension RMCharactersListViewViewModel: UICollectionViewDataSource, UICollectio
 extension RMCharactersListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacters else { return }
-        let offset = scrollView.contentOffset.y
-        let totalContentHeight = scrollView.contentSize.height
-        let totalScrollViewFixedHeight = scrollView.frame.size.height
+        guard shouldShowLoadMoreIndicator,
+              !isLoadingMoreCharacters,
+              !cellViewModel.isEmpty,
+              let nextStringURL = apiInfo?.next,
+              let nextURL = URL(string: nextStringURL) else { return }
         
-        if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
-            fetchAdditionalCharacters()
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
+                self?.fetchAdditionalCharacters(with: nextURL)
+            }
+            t.invalidate()
         }
         
     }
