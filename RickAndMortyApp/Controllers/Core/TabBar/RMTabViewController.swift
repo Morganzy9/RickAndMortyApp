@@ -11,6 +11,9 @@ import UIKit
 final class RMTabViewController: UITabBarController {
     
     var customTabBar = RMCustomTabBar()
+    let traits = [UITraitSceneCaptureState.self]
+    
+    //  MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +24,7 @@ final class RMTabViewController: UITabBarController {
         setTabBarAppearance()
         setDelegates()
         setTabs()
-        
     }
-    
     
     
 }
@@ -41,7 +42,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
         self.tabBar.backgroundColor = .secondarySystemBackground
         self.setValue(customTabBar, forKey: "TabBar")
         self.tabBar.tintColor = .green
-        self.tabBar.unselectedItemTintColor = .black
+        self.tabBar.unselectedItemTintColor = .secondaryLabel
     }
     
     private func setTabs() {

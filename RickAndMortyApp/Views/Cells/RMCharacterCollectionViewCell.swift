@@ -27,6 +27,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     private let characterNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -84,7 +85,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(with viewModel: RMCharacterCollectionViewCellViewModel) {
-        characterNameLabel.text = viewModel.characterName
+        characterNameLabel.text = viewModel.getCharacterNameString
         characterStatusLabel.text = viewModel.getCharacterStatusString
         
         switch viewModel.getCharacterStatus {

@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class RMCharacterCollectionViewCellViewModel {
+final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
     
-    let characterName: String
+    private let characterName: String
     private let characterStatus: RMCharacterStatus
     private let characterImageURL: URL?
+    
     
     //  MARK: - Init
     
@@ -19,6 +20,10 @@ final class RMCharacterCollectionViewCellViewModel {
         self.characterName = characterName
         self.characterImageURL = characterImageURL
         self.characterStatus = characterStatus
+    }
+    
+    var getCharacterNameString: String {
+        return characterName
     }
     
     var getCharacterStatusString: String {
@@ -34,16 +39,20 @@ final class RMCharacterCollectionViewCellViewModel {
             completion(.failure(URLError(.badURL)))
             return
         }
-        let urlRequest = URLRequest(url: characterUrl)
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error ?? URLError(.badServerResponse)))
-                return
-            }
-            completion(.success(data))
-        }
-        task.resume()
+        RMImageLoader.shared.downloadImage(characterUrl, completion: completion)
+    }
+    
+    //  MARK: - Hash
+    
+    static func == (lhs: RMCharacterCollectionViewCellViewModel, rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(characterName)
+        hasher.combine(characterStatus)
+        hasher.combine(characterImageURL)
     }
     
 }
