@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum RMServiceError: Error {
+    case failedToCreateRequest
+    case failedToGetData
+    case failedToFail
+}
+
 ///  Primary API service to get data
 final class RMService {
     
@@ -14,13 +20,6 @@ final class RMService {
     static let shared = RMService()
     
     private init() {}
-    
-    enum RMServiceError: Error {
-        case failedToCreateRequest
-        case failedToGetData
-        case failedToFail
-    }
-    
     
     ///   Send API Call
     /// - Parameters:

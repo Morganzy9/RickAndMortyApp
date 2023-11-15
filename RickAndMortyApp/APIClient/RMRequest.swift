@@ -107,7 +107,6 @@ final class RMRequest {
         
         return nil
     }
-    
 }
 
 extension RMRequest {
