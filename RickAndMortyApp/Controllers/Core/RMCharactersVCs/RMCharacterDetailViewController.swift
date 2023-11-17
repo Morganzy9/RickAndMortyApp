@@ -11,6 +11,7 @@ final class RMCharacterDetailViewController: UIViewController {
 
     //  MARK: - Privaate Variables
     
+    private let detailView = RMCharacterDetailView()
     private let viewModel: RMCharacterDetailViewViewModel
     
     //  MARK: - Init
@@ -32,6 +33,8 @@ final class RMCharacterDetailViewController: UIViewController {
  
     private func setViews() {
         setController()
+        addSubViews()
+        setConstrains()
     }
     
 }
@@ -43,13 +46,30 @@ extension RMCharacterDetailViewController {
     private func setController() {
         view.backgroundColor = .systemBackground
         title = viewModel.title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                            target: self, action: #selector(didTapShare))
     }
     
     private func addSubViews() {
-        
+        view.addSubview(detailView)
     }
     
     private func setConstrains() {
+        
+        NSLayoutConstraint.activate([
+        
+            detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        
+        ])
+        
+    }
+    
+    //  MARK: - Private @objc Functions
+    
+    @objc private func didTapShare() {
         
     }
     

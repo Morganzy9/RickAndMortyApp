@@ -9,7 +9,11 @@ import Foundation
 
 final class RMCharacterDetailViewViewModel {
     
+    //  MARK: - Private Consts
+    
     private let character: RMCharacter
+    
+    //  MARK: - Init
     
     init(character: RMCharacter) {
         self.character = character
@@ -19,8 +23,15 @@ final class RMCharacterDetailViewViewModel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var title: String {
+    //  MARK: - Character Closures
+    
+    private var requestURL: URL? {
+        return URL(string: character.url)
+    }
+    
+    var title: String {
         character.name.uppercased()
     }
+    
 }
 
