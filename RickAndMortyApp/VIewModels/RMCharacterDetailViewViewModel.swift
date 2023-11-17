@@ -9,9 +9,21 @@ import Foundation
 
 final class RMCharacterDetailViewViewModel {
     
+    //  MARK: - Enum SectionType
+    
+    enum SectionType: CaseIterable {
+        case characterPhoto
+        case characterInfo
+        case characterEpisodes
+    }
+    
     //  MARK: - Private Consts
     
     private let character: RMCharacter
+    
+    //  MARK: - Consts
+    
+    public let sections = SectionType.allCases
     
     //  MARK: - Init
     

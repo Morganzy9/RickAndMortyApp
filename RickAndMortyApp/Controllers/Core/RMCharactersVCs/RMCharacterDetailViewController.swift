@@ -11,13 +11,14 @@ final class RMCharacterDetailViewController: UIViewController {
 
     //  MARK: - Privaate Variables
     
-    private let detailView = RMCharacterDetailView()
+    private let detailView: RMCharacterDetailView
     private let viewModel: RMCharacterDetailViewViewModel
     
     //  MARK: - Init
     
     init(viewModel: RMCharacterDetailViewViewModel) {
         self.viewModel = viewModel
+        self.detailView = RMCharacterDetailView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,18 +29,19 @@ final class RMCharacterDetailViewController: UIViewController {
     //  MARK: - UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViews()
+        setView()
     }
  
-    private func setViews() {
+    private func setView() {
         setController()
         addSubViews()
         setConstrains()
+        setDelegates()
     }
     
 }
 
-extension RMCharacterDetailViewController {
+extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollectionViewDelegate {
     
     //  MARK: - Private Funcstions
     
@@ -48,6 +50,11 @@ extension RMCharacterDetailViewController {
         title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
                                                             target: self, action: #selector(didTapShare))
+    }
+    
+    private func setDelegates() {
+        detailView.detailCharacterCollectionView?.delegate = self
+        detailView.detailCharacterCollectionView?.dataSource = self
     }
     
     private func addSubViews() {
@@ -70,7 +77,32 @@ extension RMCharacterDetailViewController {
     //  MARK: - Private @objc Functions
     
     @objc private func didTapShare() {
+        print("DidTapShare Tapped")
+    }
+    
+    
+    //  MARK: - UICollectionView DataSource, Delegate
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.detailCharacterCollectionViewCell , for: indexPath)
         
+        if indexPath.section == 0 {
+            cell.backgroundColor = .systemMint
+        } else if indexPath.section == 1 {
+            cell.backgroundColor = .systemCyan
+        } else {
+            cell.backgroundColor = .systemBrown
+        }
+        
+        return cell
     }
     
 }

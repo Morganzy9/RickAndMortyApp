@@ -13,6 +13,7 @@ struct Constants {
     struct Identifiers {
         static let charactersCollectionViewCell = "RMCharacterCollectionViewCell"
         static let footerLoadingCollectionReusableViewID = "RMFooterLoadingCollectionReusableView"
+        static let detailCharacterCollectionViewCell = "RMDetailCharacterCollectionViewCell"
     }
     
     struct DeviceSizes {
