@@ -52,7 +52,6 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
     private lazy var characterStatusStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [characterIndicatorStatusView, characterStatusLabel])
-        stack.distribution = .fill
         stack.axis = .horizontal
         stack.spacing = 5
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +133,6 @@ extension RMCharacterCollectionViewCell {
             characterIndicatorStatusView.topAnchor.constraint(equalTo: characterStatusStack.topAnchor),
             characterIndicatorStatusView.leadingAnchor.constraint(equalTo: characterStatusStack.leadingAnchor),
             characterIndicatorStatusView.bottomAnchor.constraint(equalTo: characterStatusStack.bottomAnchor),
-            characterIndicatorStatusView.heightAnchor.constraint(equalToConstant: 15),
             characterIndicatorStatusView.widthAnchor.constraint(equalToConstant: 15),
             
             characterStatusLabel.topAnchor.constraint(equalTo: characterStatusStack.topAnchor),

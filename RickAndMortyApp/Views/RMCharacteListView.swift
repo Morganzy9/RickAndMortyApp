@@ -90,6 +90,8 @@ extension RMCharacteListView {
         
         NSLayoutConstraint.activate([
         
+            spinner.heightAnchor.constraint(equalToConstant: 100),
+            spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
             
