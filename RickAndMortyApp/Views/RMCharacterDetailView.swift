@@ -47,7 +47,7 @@ final class RMCharacterDetailView: UIView {
 
 extension RMCharacterDetailView {
     
-    //  MARK: - Private Functions
+    //  MARK: - Private Methods
     
     private func setupCollectionView() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +56,6 @@ extension RMCharacterDetailView {
         detailCharacterCollectionView = collectionView
     }
 
-    
     private func addSubViews() {
         addSubViews(detailCharacterCollectionView!, spinner)
     }

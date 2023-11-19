@@ -76,7 +76,8 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
     
     //  MARK: - Private @objc Functions
     
-    @objc private func didTapShare() {
+    @objc
+    private func didTapShare() {
         print("DidTapShare Tapped")
     }
     

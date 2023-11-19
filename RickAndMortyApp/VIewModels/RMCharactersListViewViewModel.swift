@@ -67,7 +67,6 @@ final class RMCharactersListViewViewModel: NSObject {
         }
     }
     
-    
     /// Fetch Additional Characters if needed
     func fetchAdditionalCharacters(with url: URL) {
         guard !isLoadingMoreCharacters else { return }
