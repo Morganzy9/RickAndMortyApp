@@ -45,34 +45,23 @@ final class RMCharacterDetailViewViewModel {
         character.name.uppercased()
     }
     
-    //  MARK: - Layout Sections
+    //  MARK: - Methods
     
-    private func createSectionLayout(with itemLayOutDimension: NSCollectionLayoutSize,
-                                     itemContentInsects: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0),
-                                     groupDirection: NSCollectionLayoutGroup.Type,
-                                     groupLayOutSize: NSCollectionLayoutSize
-                                     
-    ) -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-            widthDimension: itemLayOutDimension.widthDimension,
-            heightDimension: itemLayOutDimension.heightDimension)
-        )
-        item.contentInsets = itemContentInsects
-        
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(0.5)),
-            subitems: [item]
-        )
-        let section = NSCollectionLayoutSection(group: group)
-        
-        return section
+    func createSctionLayOut(_ type: SectionType) -> NSCollectionLayoutSection {
+        switch type {
+        case .characterPhoto:
+            return createPhotoSectionLayOut()
+        case .characterInfo:
+            return createInfoSectionLayOut()
+        case .characterEpisodes:
+            return createEpisodesSectionLayOut()
+        }
     }
     
+    //  MARK: - Private Methods
     
-    
-    func createPhotoSectionLayOut() -> NSCollectionLayoutSection {
+        //  MARK: Layout Sections
+    private func createPhotoSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))
@@ -90,7 +79,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createInfoSectionLayOut() -> NSCollectionLayoutSection {
+    private func createInfoSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.5),
             heightDimension: .fractionalHeight(1.0))
@@ -114,7 +103,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createEpisodesSectionLayOut() -> NSCollectionLayoutSection {
+    private func createEpisodesSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))

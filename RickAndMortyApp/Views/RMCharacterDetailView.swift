@@ -95,11 +95,11 @@ extension RMCharacterDetailView {
         
         switch sectionType[sectionIndex] {
         case .characterPhoto:
-            return viewModel.createPhotoSectionLayOut()
+            return viewModel.createSctionLayOut(.characterPhoto)
         case .characterInfo:
-            return viewModel.createInfoSectionLayOut()
+            return viewModel.createSctionLayOut(.characterInfo)
         case .characterEpisodes:
-            return viewModel.createEpisodesSectionLayOut()
+            return viewModel.createSctionLayOut(.characterEpisodes)
         }
         
     }
