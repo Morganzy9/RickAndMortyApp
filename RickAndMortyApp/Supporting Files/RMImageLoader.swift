@@ -25,7 +25,6 @@ final class RMImageLoader {
         let key = url.absoluteString as NSString
         
         if let data = imageDataCache.object(forKey: key) {
-            print("DEBUG CONSOLE: \(key)")
             completion(.success(data as Data))
             return
         }
