@@ -77,7 +77,7 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
     //  MARK: - Private @objc Functions
     
     @objc
-    private func didTapShare() {
+    private func didTapShare() { 
         print("DidTapShare Tapped")
     }
     
@@ -89,30 +89,43 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        let sectionType = viewModel.sections[section]
+        switch sectionType {
+        case .characterPhoto:
             return 1
-        case 1:
-            return 6
-        case 2:
-            return 8
-        default:
-            return 2 
+        case .characterInfo(viewModels: let viewModel):
+            return viewModel.count
+        case .characterEpisodes(viewModels: let viewModel):
+            return viewModel.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.detailCharacterCollectionViewCell , for: indexPath)
+        let sections = viewModel.sections[indexPath.section]
         
-        if indexPath.section == 0 {
-            cell.backgroundColor = .systemMint
-        } else if indexPath.section == 1 {
-            cell.backgroundColor = .systemCyan
-        } else {
-            cell.backgroundColor = .systemBrown
+        switch  sections {
+        case .characterPhoto(viewModel: let viewModel):
+            guard let characterPhotoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterPhotoCollectionViewCell, for: indexPath) as? RMCharacterPhotoCollectionViewCell else { fatalError("Can not dequeue characterPhotoCollectionViewCell") }
+            
+            characterPhotoCell.configure(with: viewModel)
+            characterPhotoCell.backgroundColor = .systemCyan
+            
+            return characterPhotoCell
+        case .characterInfo(viewModels: let viewModel):
+            guard let characterInfoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterInfoCollectionVIewCell, for: indexPath) as? RMCharacterInfoCollectionViewCell else { fatalError("Can not dequeue characterInfoCell") }
+            
+            characterInfoCell.configure(with: viewModel[indexPath.row])
+            characterInfoCell.backgroundColor = .systemBlue
+            
+            return characterInfoCell
+        case .characterEpisodes(viewModels: let viewModel):
+            guard let characterEpisodesCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell, for: indexPath) as? RMCharacterEpisodesCollectionViewCell else { fatalError("Can not dequeue characterEpisodesCell") }
+            
+            characterEpisodesCell.configure(with: viewModel[indexPath.row])
+            characterEpisodesCell.backgroundColor = .systemTeal
+            
+            return characterEpisodesCell
         }
-        
-        return cell
     }
     
 }

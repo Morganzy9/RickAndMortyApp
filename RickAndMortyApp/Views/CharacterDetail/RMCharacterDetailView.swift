@@ -84,8 +84,12 @@ extension RMCharacterDetailView {
             return self.createSection(for: sectionIndex)
         }
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: Constants.Identifiers.detailCharacterCollectionViewCell)
+        collectionView.register(RMCharacterPhotoCollectionViewCell.self,
+                                forCellWithReuseIdentifier: Constants.Identifiers.characterPhotoCollectionViewCell)
+        collectionView.register(RMCharacterInfoCollectionViewCell.self,
+                                forCellWithReuseIdentifier: Constants.Identifiers.characterInfoCollectionVIewCell)
+        collectionView.register(RMCharacterEpisodesCollectionViewCell.self,
+                                forCellWithReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }
@@ -95,11 +99,11 @@ extension RMCharacterDetailView {
         
         switch sectionType[sectionIndex] {
         case .characterPhoto:
-            return viewModel.createSctionLayOut(.characterPhoto)
+            return viewModel.createPhotoSectionLayOut()
         case .characterInfo:
-            return viewModel.createSctionLayOut(.characterInfo)
+            return viewModel.createInfoSectionLayOut()
         case .characterEpisodes:
-            return viewModel.createSctionLayOut(.characterEpisodes)
+            return viewModel.createEpisodesSectionLayOut()
         }
         
     }
