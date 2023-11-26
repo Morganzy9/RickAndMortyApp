@@ -13,6 +13,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setCell()
     }
     
     required init?(coder: NSCoder) {
@@ -29,6 +30,11 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
         
+    }
+    
+    func setCell() {
+        contentView.backgroundColor = .tertiarySystemGroupedBackground
+        contentView.layer.cornerRadius = 9
     }
 
 }

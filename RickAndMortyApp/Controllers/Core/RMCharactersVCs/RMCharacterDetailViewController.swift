@@ -77,7 +77,7 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
     //  MARK: - Private @objc Functions
     
     @objc
-    private func didTapShare() { 
+    private func didTapShare() {
         print("DidTapShare Tapped")
     }
     
@@ -108,21 +108,18 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
             guard let characterPhotoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterPhotoCollectionViewCell, for: indexPath) as? RMCharacterPhotoCollectionViewCell else { fatalError("Can not dequeue characterPhotoCollectionViewCell") }
             
             characterPhotoCell.configure(with: viewModel)
-            characterPhotoCell.backgroundColor = .systemCyan
             
             return characterPhotoCell
         case .characterInfo(viewModels: let viewModel):
             guard let characterInfoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterInfoCollectionVIewCell, for: indexPath) as? RMCharacterInfoCollectionViewCell else { fatalError("Can not dequeue characterInfoCell") }
             
             characterInfoCell.configure(with: viewModel[indexPath.row])
-            characterInfoCell.backgroundColor = .systemBlue
             
             return characterInfoCell
         case .characterEpisodes(viewModels: let viewModel):
             guard let characterEpisodesCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell, for: indexPath) as? RMCharacterEpisodesCollectionViewCell else { fatalError("Can not dequeue characterEpisodesCell") }
             
             characterEpisodesCell.configure(with: viewModel[indexPath.row])
-            characterEpisodesCell.backgroundColor = .systemTeal
             
             return characterEpisodesCell
         }
