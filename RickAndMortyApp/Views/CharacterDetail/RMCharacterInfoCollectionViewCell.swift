@@ -13,7 +13,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private let valuesLabel: UILabel = {
         let label = UILabel()
-        label.text = "Earth"
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 22, weight: .light)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -21,7 +21,6 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Location"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,12 +59,18 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         valuesLabel.text = nil
         titleLabel.text = nil
         iconImageView.image = nil
+        titleLabel.textColor = .label
+        iconImageView.tintColor = .label
     }
     
     //  MARK: - Configure Cell
     
     func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
-        
+        titleLabel.text = viewModel.title
+        valuesLabel.text = viewModel.displayValue
+        iconImageView.image = viewModel.isconImage
+        titleLabel.textColor = viewModel.tintColor
+        iconImageView.tintColor = viewModel.tintColor
     }
     
     func setCell() {
@@ -110,10 +115,10 @@ extension RMCharacterInfoCollectionViewCell {
             iconImageView.widthAnchor.constraint(equalToConstant: 30),
             
             
-            valuesLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 36),
+            valuesLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             valuesLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
             valuesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            valuesLabel.heightAnchor.constraint(equalToConstant: 30)
+            valuesLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
             
         ])
         
