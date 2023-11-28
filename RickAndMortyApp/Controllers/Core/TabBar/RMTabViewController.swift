@@ -50,7 +50,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
             viewController.navigationItem.largeTitleDisplayMode = .automatic
             
             let navigationController = UINavigationController(rootViewController: viewController)
-            
+            navigationController.navigationBar.tintColor = .systemGreen
             navigationController.navigationBar.prefersLargeTitles = true
             
             navigationController.tabBarItem = UITabBarItem(title: tabBarTitles[index], image: UIImage(systemName: tabBarIcons[index]), tag: index)
