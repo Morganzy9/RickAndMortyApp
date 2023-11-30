@@ -17,14 +17,12 @@ final class RMCharacterDetailViewViewModel {
         case characterEpisodes(viewModels: [RMCharacterEpisodesCollectionViewCellViewModel])
     }
     
-    //  MARK: - Private Consts
+    //  MARK: - Consts and Variables
     
     private let character: RMCharacter
     
-    //  MARK: - Varibales
-    
     var sections: [SectionType] = []
-    
+    var episodes: [String] { character.episode }
     
     //  MARK: - Init
     
@@ -49,31 +47,40 @@ final class RMCharacterDetailViewViewModel {
     
     //  MARK: - Methods
     
+    func createSection(_ section: SectionType) -> NSCollectionLayoutSection {
+        switch section {
+        case .characterPhoto:
+            return createPhotoSectionLayOut()
+        case .characterInfo:
+            return createInfoSectionLayOut()
+        case .characterEpisodes:
+            return createEpisodesSectionLayOut()
+        }
+    }
     
     //  MARK: - Private Methods
     
     private func setSections() {
         sections = [
-            .characterPhoto(viewModel: .init()),
+            .characterPhoto(viewModel: .init(imageURL: URL(string: character.image))),
             .characterInfo(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init(),
-                .init()
+                .init(type: .status ,value: character.status.rawValue),
+                .init(type: .gender ,value: character.gender.rawValue),
+                .init(type: .type ,value: character.type),
+                .init(type: .species ,value: character.species),
+                .init(type: .origin, value: character.origin.name),
+                .init(type: .location ,value: character.location.name),
+                .init(type: .created ,value: character.created),
+                .init(type: .episodeCount ,value: String(describing: character.episode.count))
             ]),
-            .characterEpisodes(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init(),
-            ])
+            .characterEpisodes(viewModels: character.episode.compactMap({
+                return RMCharacterEpisodesCollectionViewCellViewModel(episodeDataURL: URL(string: $0))
+            }))
             
         ]
     }
-
     
-    func createPhotoSectionLayOut() -> NSCollectionLayoutSection {
+    private func createPhotoSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))
@@ -91,7 +98,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createInfoSectionLayOut() -> NSCollectionLayoutSection {
+    private func createInfoSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.5),
             heightDimension: .fractionalHeight(1.0))
@@ -115,7 +122,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createEpisodesSectionLayOut() -> NSCollectionLayoutSection {
+    private func createEpisodesSectionLayOut() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))

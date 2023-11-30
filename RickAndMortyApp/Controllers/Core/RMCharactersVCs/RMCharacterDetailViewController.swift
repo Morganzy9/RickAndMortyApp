@@ -77,7 +77,7 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
     //  MARK: - Private @objc Functions
     
     @objc
-    private func didTapShare() { 
+    private func didTapShare() {
         print("DidTapShare Tapped")
     }
     
@@ -108,23 +108,36 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
             guard let characterPhotoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterPhotoCollectionViewCell, for: indexPath) as? RMCharacterPhotoCollectionViewCell else { fatalError("Can not dequeue characterPhotoCollectionViewCell") }
             
             characterPhotoCell.configure(with: viewModel)
-            characterPhotoCell.backgroundColor = .systemCyan
             
             return characterPhotoCell
         case .characterInfo(viewModels: let viewModel):
             guard let characterInfoCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterInfoCollectionVIewCell, for: indexPath) as? RMCharacterInfoCollectionViewCell else { fatalError("Can not dequeue characterInfoCell") }
             
             characterInfoCell.configure(with: viewModel[indexPath.row])
-            characterInfoCell.backgroundColor = .systemBlue
             
             return characterInfoCell
         case .characterEpisodes(viewModels: let viewModel):
             guard let characterEpisodesCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell, for: indexPath) as? RMCharacterEpisodesCollectionViewCell else { fatalError("Can not dequeue characterEpisodesCell") }
             
             characterEpisodesCell.configure(with: viewModel[indexPath.row])
-            characterEpisodesCell.backgroundColor = .systemTeal
             
             return characterEpisodesCell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sections = viewModel.sections[indexPath.section]
+        
+        switch sections {
+        case .characterPhoto, .characterInfo:
+            break
+        case .characterEpisodes(let viewModels):
+            let episodes = self.viewModel.episodes
+            let selection = episodes[indexPath.row]
+            let viewModel = viewModels[indexPath.row]
+            
+            let episodeDetailVC = RMEpisodeDetailViewController(url: URL(string: selection))
+            navigationController?.pushViewController(episodeDetailVC, animated: true)
         }
     }
     
