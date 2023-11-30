@@ -9,7 +9,7 @@ import UIKit
 
 final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
-    //  MARK: - UI
+    //  MARK: - UI Elements
     
     private let valuesLabel: UILabel = {
         let label = UILabel()

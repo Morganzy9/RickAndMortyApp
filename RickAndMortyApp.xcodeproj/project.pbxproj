@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		162673312B18D9DB001A63B8 /* RMEpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162673302B18D9DB001A63B8 /* RMEpisodeDetailViewController.swift */; };
 		162CD5852AF29B5E008E5580 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162CD5842AF29B5E008E5580 /* Constants.swift */; };
 		1632B4B62AF661E40057D42D /* RMCharacterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1632B4B52AF661E40057D42D /* RMCharacterCollectionViewCell.swift */; };
 		1632B4B82AF663100057D42D /* RMCharacterCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1632B4B72AF663100057D42D /* RMCharacterCollectionViewCellViewModel.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		162673302B18D9DB001A63B8 /* RMEpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewController.swift; sourceTree = "<group>"; };
 		162CD5842AF29B5E008E5580 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1632B4B52AF661E40057D42D /* RMCharacterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1632B4B72AF663100057D42D /* RMCharacterCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			children = (
 				16C0C5272AEAB2EE005C9E10 /* RMCharacterViewController.swift */,
 				16D496802AFCAC5D0075BE6E /* RMCharacterDetailViewController.swift */,
+				162673302B18D9DB001A63B8 /* RMEpisodeDetailViewController.swift */,
 			);
 			path = RMCharactersVCs;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				16C0C52C2AEAB3A8005C9E10 /* RMEpisodeViewController.swift in Sources */,
 				16C0C5062AEA9244005C9E10 /* RMTabViewController.swift in Sources */,
 				16C0C5022AEA9244005C9E10 /* AppDelegate.swift in Sources */,
+				162673312B18D9DB001A63B8 /* RMEpisodeDetailViewController.swift in Sources */,
 				16C0C52E2AEAB3C5005C9E10 /* RMSettingsViewController.swift in Sources */,
 				16C687E62AF150840091C84A /* RMCharacteListView.swift in Sources */,
 				1632B4B82AF663100057D42D /* RMCharacterCollectionViewCellViewModel.swift in Sources */,

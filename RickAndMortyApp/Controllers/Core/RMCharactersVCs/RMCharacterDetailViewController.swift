@@ -125,4 +125,20 @@ extension RMCharacterDetailViewController: UICollectionViewDataSource ,UICollect
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sections = viewModel.sections[indexPath.section]
+        
+        switch sections {
+        case .characterPhoto, .characterInfo:
+            break
+        case .characterEpisodes(let viewModels):
+            let episodes = self.viewModel.episodes
+            let selection = episodes[indexPath.row]
+            let viewModel = viewModels[indexPath.row]
+            
+            let episodeDetailVC = RMEpisodeDetailViewController(url: URL(string: selection))
+            navigationController?.pushViewController(episodeDetailVC, animated: true)
+        }
+    }
+    
 }

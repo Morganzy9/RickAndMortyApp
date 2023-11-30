@@ -76,7 +76,6 @@ extension RMCharacterDetailView {
             detailCharacterCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             
         ])
-        
     }
     
     private func createCollectionView() -> UICollectionView {
@@ -95,17 +94,7 @@ extension RMCharacterDetailView {
     }
     
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
-        let sectionType = viewModel.sections
-        
-        switch sectionType[sectionIndex] {
-        case .characterPhoto:
-            return viewModel.createPhotoSectionLayOut()
-        case .characterInfo:
-            return viewModel.createInfoSectionLayOut()
-        case .characterEpisodes:
-            return viewModel.createEpisodesSectionLayOut()
-        }
-        
+        return viewModel.createSection(viewModel.sections[sectionIndex])
     }
     
 }
