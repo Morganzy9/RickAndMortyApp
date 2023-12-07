@@ -23,11 +23,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     private var episodes: [RMEpisode] = [] {
         didSet {
             for episode in episodes {
-//                let viewModel = RMCharacterCollectionViewCellViewModel(
-//                    characterName: character.name,
-//                    characterStatus: character.status,
-//                    characterImageURL: URL(string: character.image))
-                
+                let viewModel = RMCharacterEpisodesCollectionViewCellViewModel(episodeDataURL: URL(string: episode.url))
                 if !cellViewModel.contains(viewModel) {
                     cellViewModel.append(viewModel)
                 }
@@ -37,7 +33,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     private var cellViewModel: [RMCharacterEpisodesCollectionViewCellViewModel ] = []
     
-    private var apiInfo: RMGetAllCharacterResponse.Info? = nil
+    private var apiInfo: RMGetAllEpisodesResponse.Info? = nil
     
     private var isLoadingMoreCharacters = false
     
@@ -50,14 +46,14 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     //  MARK: - Functions
     
-    func fetchCharacters() {
-        RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
+    func fetchEpisodes() {
+        RMService.shared.execute(.listEpisodesRequest, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let model):
-                let charactersResults = model.results
+                let episodesResults = model.results
                 strongSelf.apiInfo =  model.info
-                strongSelf.episodes = charactersResults
+                strongSelf.episodes = episodesResults
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadInitialEpisodes()
                 }
@@ -67,8 +63,8 @@ final class RMEpisodeListViewViewModel: NSObject {
         }
     }
     
-    /// Fetch Additional Characters if needed
-    func fetchAdditionalCharacters(with url: URL) {
+    /// Fetch Additional Episodes if needed
+    func fetchAdditionalEpisodes(with url: URL) {
         guard !isLoadingMoreCharacters else { return }
         isLoadingMoreCharacters = true
         guard let request = RMRequest(url: url) else {
@@ -76,7 +72,7 @@ final class RMEpisodeListViewViewModel: NSObject {
             return
         }
         
-        RMService.shared.execute(request, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let model):
@@ -101,7 +97,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     
 }
 
-//  MARK: - Characters List UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+//  MARK: - EpisodeList UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
 extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -110,20 +106,20 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let charactersCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.charactersCollectionViewCell, for: indexPath) as? RMCharacterCollectionViewCell else {
+        guard let episodesCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell, for: indexPath) as? RMCharacterEpisodesCollectionViewCell else {
             fatalError("Error during dequeue CharacterCell")
         }
         
         let viewModel = cellViewModel[indexPath.row]
         
-        charactersCell.configureCell(with: viewModel)
+        episodesCell.configure(with: viewModel)
         
-        return charactersCell
+        return episodesCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (Constants.DeviceSizes.currentWidth - 30) / 2
-        return CGSize(width: width, height: width * 1.5)
+        return CGSize(width: width, height: width * 0.8)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -168,7 +164,7 @@ extension RMEpisodeListViewViewModel: UIScrollViewDelegate {
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
-                self?.fetchAdditionalCharacters(with: nextURL)
+                self?.fetchAdditionalEpisodes(with: nextURL)
             }
             t.invalidate()
         }

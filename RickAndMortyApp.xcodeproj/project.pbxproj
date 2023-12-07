@@ -49,6 +49,7 @@
 		16D496812AFCAC5D0075BE6E /* RMCharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D496802AFCAC5D0075BE6E /* RMCharacterDetailViewController.swift */; };
 		16D496832AFCACE80075BE6E /* RMCharacterDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D496822AFCACE80075BE6E /* RMCharacterDetailViewViewModel.swift */; };
 		16D496852AFCAD500075BE6E /* RMCharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D496842AFCAD500075BE6E /* RMCharacterDetailView.swift */; };
+		16D8C6FE2B2225E80051BE5B /* RMGetAllEpisodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8C6FD2B2225E80051BE5B /* RMGetAllEpisodesResponse.swift */; };
 		16DBB6FF2AF01B8C00B835A6 /* RMGetAllCharacterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DBB6FE2AF01B8C00B835A6 /* RMGetAllCharacterResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		16D496802AFCAC5D0075BE6E /* RMCharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterDetailViewController.swift; sourceTree = "<group>"; };
 		16D496822AFCACE80075BE6E /* RMCharacterDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterDetailViewViewModel.swift; sourceTree = "<group>"; };
 		16D496842AFCAD500075BE6E /* RMCharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterDetailView.swift; sourceTree = "<group>"; };
+		16D8C6FD2B2225E80051BE5B /* RMGetAllEpisodesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMGetAllEpisodesResponse.swift; sourceTree = "<group>"; };
 		16DBB6FE2AF01B8C00B835A6 /* RMGetAllCharacterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMGetAllCharacterResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -316,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				16DBB6FE2AF01B8C00B835A6 /* RMGetAllCharacterResponse.swift */,
+				16D8C6FD2B2225E80051BE5B /* RMGetAllEpisodesResponse.swift */,
 			);
 			path = APIResponsesTypes;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				16C0C5232AEAB21A005C9E10 /* RMCharacter.swift in Sources */,
 				1632B4B62AF661E40057D42D /* RMCharacterCollectionViewCell.swift in Sources */,
 				16D496812AFCAC5D0075BE6E /* RMCharacterDetailViewController.swift in Sources */,
+				16D8C6FE2B2225E80051BE5B /* RMGetAllEpisodesResponse.swift in Sources */,
 				167E6B3F2B0BCCB5000F403B /* RMCharacterEpisodesCollectionViewCell.swift in Sources */,
 				164F3AB42B1E36C300B337F2 /* RMAPICacheManager.swift in Sources */,
 				16C687E32AF14FF60091C84A /* RMCharactersListViewViewModel.swift in Sources */,

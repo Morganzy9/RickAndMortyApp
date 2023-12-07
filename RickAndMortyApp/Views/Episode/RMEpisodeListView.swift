@@ -20,7 +20,7 @@ final class RMEpisodeListView: UIView {
     
     //  MARK: - Private Constants
     
-    private let viewModel = ()
+    private let viewModel = RMEpisodeListViewViewModel()
     
     //  MARK: - UI Elements
     
@@ -38,8 +38,8 @@ final class RMEpisodeListView: UIView {
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(RMCharacterCollectionViewCell.self,
-                                forCellWithReuseIdentifier: Constants.Identifiers.charactersCollectionViewCell)
+        collectionView.register(RMCharacterEpisodesCollectionViewCell.self,
+                                forCellWithReuseIdentifier: Constants.Identifiers.characterEpisodesCollectionViewCell)
         collectionView.register(RMFooterLoadingCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                 withReuseIdentifier: Constants.Identifiers.footerLoadingCollectionReusableViewID)
@@ -65,7 +65,7 @@ final class RMEpisodeListView: UIView {
     }
 }
 
-extension RMCharacteListView {
+extension RMEpisodeListView {
     
     //  MARK: - Private Functions
     
@@ -73,7 +73,7 @@ extension RMCharacteListView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemBackground
         spinner.startAnimating()
-        viewModel.fetchCharacters()
+        viewModel.fetchEpisodes()
     }
     
     private func setDelegates() {
@@ -105,9 +105,9 @@ extension RMCharacteListView {
     }
 }
 
-extension RMEpisodeListView: RMEpisodeListViewDelegate {
+extension RMEpisodeListView: RMEpisodeListViewViewModelDelegate {
     
-    func didLoadInitialCharacters() {
+    func didLoadInitialEpisodes() {
         spinner.stopAnimating()
         charactersCollectionView.isHidden = false
         charactersCollectionView.reloadData()
@@ -116,14 +116,14 @@ extension RMEpisodeListView: RMEpisodeListViewDelegate {
         }
     }
     
-    func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {
+    func didLoadMoreEpisodes(with newIndexPaths: [IndexPath]) {
         charactersCollectionView.performBatchUpdates {
             self.charactersCollectionView.insertItems(at: newIndexPaths)
         }
     }
     
-    func didSelectEpisode(_ character: RMCharacter) {
-        delegate?.rmCharacterListView(self, didSelectCharacter: character)
+    func didSelectEpisodes(_ episode: RMEpisode) {
+        delegate?.rmEpisodeListView(self, didSelectEpisode: episode)
     }
 }
 
