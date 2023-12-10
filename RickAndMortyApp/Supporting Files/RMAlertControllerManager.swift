@@ -48,7 +48,7 @@ class RMAlertControllerManager: RMAlertControllerManagerProtocol {
         
         guard let url = URL(string: url) else { return /*UIAlertController(title: title, message: message, preferredStyle: .alert)*/ }
         
-        let alert = RMAlert()
+        let alert = RMAlertChoosenCharacter()
         
         
         
