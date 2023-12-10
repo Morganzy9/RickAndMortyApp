@@ -62,20 +62,21 @@ extension RMCharacterViewController: RMCharacterListViewDelegate {
         let viewModel = RMCharacterDetailViewViewModel(character: character)
         let detailVC = RMCharacterDetailViewController(viewModel: viewModel)
         detailVC.navigationItem.largeTitleDisplayMode = .never
-        let choosenCharacterAlert = RMAlertControllerManager.shared.showSelectedCharacterAlert(title: viewModel.title, message: viewModel.episodes[0] , url: character.image)
-        
-        present(choosenCharacterAlert, animated: true)
+        let choosenCharacterAlert = RMAlertControllerManager.shared.showSelectedCharacterAlert(title: viewModel.title, message: viewModel.episodes[0] , url: character.image, vc: self)
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            choosenCharacterAlert.dismiss(animated: true, completion: nil)
-            CATransaction.begin()
-            let transition = CATransition()
-            transition.duration = 0.5
-            transition.type = CATransitionType.fade
-            self.navigationController?.view.layer.add(transition, forKey: kCATransition)
-            CATransaction.commit()
-            self.navigationController?.pushViewController(detailVC, animated: false)
-        }
+
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//            choosenCharacterAlert.dismiss(animated: true, completion: nil)
+//            CATransaction.begin()
+//            let transition = CATransition()
+//            transition.duration = 0.25
+//            transition.type = CATransitionType.fade
+//            self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+//            CATransaction.commit()
+//            self.navigationController?.pushViewController(detailVC, animated: false)
+//        }
     }
 }

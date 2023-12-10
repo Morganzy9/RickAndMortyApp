@@ -22,24 +22,47 @@ class RMAlertControllerManager: RMAlertControllerManagerProtocol {
     
     //MARK: - Alert message
     
-    func showSelectedCharacterAlert(title: String, message: String, url: String) -> UIAlertController {
+
+    
+//    func showSelectedCharacterAlert(title: String, message: String, url: String, vc: UIViewController) -> UIAlertController {
+//        
+//                guard let url = URL(string: url) else { return UIAlertController(title: title, message: message, preferredStyle: .alert) }
+//        
+//                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        
+//                RMImageLoader.shared.downloadImage(url) { result in
+//                    switch result {
+//                    case .success(let image):
+//                        alert.addImage(image)
+//                    case .failure(_):
+//                        if let defaultImage = UIImage(systemName: "globe"),
+//                           let defaultImageData = defaultImage.pngData() {
+//                            alert.addImage(defaultImageData)
+//                        }
+//                    }
+//                }
+//                return alert
+//    }
+    
+    func showSelectedCharacterAlert(title: String, message: String, url: String, vc: UIViewController) {
         
-        guard let url = URL(string: url) else { return UIAlertController(title: title, message: message, preferredStyle: .alert) }
+        guard let url = URL(string: url) else { return /*UIAlertController(title: title, message: message, preferredStyle: .alert)*/ }
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = RMAlert()
+        
+        
         
         RMImageLoader.shared.downloadImage(url) { result in
             switch result {
             case .success(let image):
-                alert.addImage(image)
+                alert.showAlert(title: title, message: message, image: image, viewController: vc)
             case .failure(_):
                 if let defaultImage = UIImage(systemName: "globe"),
                    let defaultImageData = defaultImage.pngData() {
-                    alert.addImage(defaultImageData)
+                    alert.showAlert(title: title, message: message, image: defaultImageData, viewController: vc)
                 }
             }
         }
-        return alert
     }
     
     func showAlert(title: String, message: String) -> UIAlertController {
