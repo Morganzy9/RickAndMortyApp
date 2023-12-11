@@ -43,8 +43,12 @@ final class RMAlertChoosenCharacter: UIView {
         return alertView
     }()
     
+    private var myRagetView: UIView?
+    
     func showAlert(title: String, message: String, image: Data, viewController: UIViewController) {
         guard let targetView = viewController.view else { return }
+        
+        myRagetView = targetView
         
         alertBackGroundView.frame = targetView.bounds
         targetView.addSubview(alertBackGroundView)
@@ -71,15 +75,61 @@ final class RMAlertChoosenCharacter: UIView {
             if done {
                 UIView.animate(withDuration: 0.25) {
                     self.alertView.center = targetView.center
+                } completion: { done in
+                    // Scale the Alert
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.alertView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+                    }) { done in
+                    // Moving the alert Up
+                        guard done else { return }
+                        UIView.animate(withDuration: 0.5) {
+                            self.alertView.center = CGPoint(x: self.alertView.center.x, y: self.alertView.center.y - 125)
+                        } completion: { done in
+                            // Scale
+                            guard done else { return }
+                            UIView.animate(withDuration: 0.5) {
+                                self.alertView.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+                            } completion: { done in
+                                // Dismiss
+                                guard done else { return }
+                                self.dissmissAlert()
+                            }
+                        }
+                    }
                 }
             }
         }
     }
     
     func dissmissAlert() {
-        // Dismiss alert implementation
+        guard let targetView = myRagetView else { return }
+        
+        UIView.animate(withDuration: 0.15) {
+            self.alertView.frame = CGRect(x: 40,
+                                          y: targetView.frame.size.height,
+                                          width: targetView.frame.size.width - 80,
+                                          height: 300)
+        } completion: { done in
+            if done {
+                UIView.animate(withDuration: 0.15) {
+                    self.alertBackGroundView.alpha = 0
+                } completion: { done in
+                    guard done else { return }
+                    self.alertView.removeFromSuperview()
+                    self.alertBackGroundView.removeFromSuperview()
+                }
+            }
+        }
     }
     
 }
-
+/*
+ UIView.animate(withDuration: 1.0, animations: {
+ // Set the scale transform to scale up (2x) in both width and height
+ self.alertImageView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+ }) { (_) in
+ // Optionally, you can add a completion block to execute code when the animation finishes
+ print("Animation finished")
+ }
+ */
 
