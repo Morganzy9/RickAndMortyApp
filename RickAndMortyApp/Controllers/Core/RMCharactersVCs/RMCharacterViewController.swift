@@ -64,7 +64,7 @@ extension RMCharacterViewController: RMCharacterListViewDelegate {
         detailVC.navigationItem.largeTitleDisplayMode = .never
         let choosenCharacterAlert: () = RMAlertControllerManager.shared.showSelectedCharacterAlert(title: viewModel.title, message: viewModel.episodes[0] , url: character.image, vc: self)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.08) {
             CATransaction.begin()
             let transition = CATransition()
             transition.duration = 0.25
