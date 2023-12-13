@@ -18,6 +18,7 @@ final class RMService {
     
     /// Singleton pattern
     static let shared = RMService()
+    private let cacheManager = RMAPICacheManager()
     
     private init() {}
     
@@ -32,7 +33,20 @@ final class RMService {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+        if let cachedData = cacheManager.cacheResponse(for: request.endPoint, url: request.url) {
+            
+            do {
+                var count = 0
+                let result = try JSONDecoder().decode(type.self, from: cachedData)
+                print("DEBUG CONSOLE: USING CACHE API RESPONSE \(String(describing: count+=1))")
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
             
             guard let data = data, error == nil else {
                 completion(.failure(error ?? RMServiceError.failedToGetData))
@@ -42,6 +56,11 @@ final class RMService {
             // Decode response
             do {
                 let result = try JSONDecoder().decode(type.self, from: data)
+                self?.cacheManager.setCache(
+                    for: request.endPoint,
+                    data: data,
+                    url: request.url
+                )
                 completion(.success(result))
             } catch {
                 completion(.failure(error))

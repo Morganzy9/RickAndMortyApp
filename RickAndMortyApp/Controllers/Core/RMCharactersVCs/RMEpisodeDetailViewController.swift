@@ -9,10 +9,12 @@ import UIKit
 
 final class RMEpisodeDetailViewController: UIViewController {
     
-    private let url: URL?
+    private let viewModel: RMEpisodeDetailViewViewModel
 
+    //  MARK: - Init
+    
     init(url: URL?) {
-        self.url = url
+        self.viewModel = .init(endPointURL: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -20,6 +22,7 @@ final class RMEpisodeDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //  MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,7 +13,7 @@ protocol RMEpisodeDataRender {
     var episode: String { get }
 }
 
-final class RMCharacterEpisodesCollectionViewCellViewModel {
+final class RMCharacterEpisodesCollectionViewCellViewModel: Hashable, Equatable {
     
     //  MARK: - Varibales and COnstants
     
@@ -32,6 +32,16 @@ final class RMCharacterEpisodesCollectionViewCellViewModel {
     
     init(episodeDataURL: URL?) {
         self.episodeDatURL = episodeDataURL
+    }
+    
+    //  MARK: - HASH ans Equatable
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.episodeDatURL?.absoluteString ?? "")
+    }
+    
+    static func == (lhs: RMCharacterEpisodesCollectionViewCellViewModel, rhs: RMCharacterEpisodesCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
 
     //  MARK: - Methods
@@ -63,5 +73,5 @@ final class RMCharacterEpisodesCollectionViewCellViewModel {
         
     }
         
-    
 }
+

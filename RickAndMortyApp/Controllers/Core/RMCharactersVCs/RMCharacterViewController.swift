@@ -11,7 +11,7 @@ import UIKit
 final class RMCharacterViewController: UIViewController {
     
     private let characterListView = RMCharacteListView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
@@ -23,7 +23,7 @@ final class RMCharacterViewController: UIViewController {
         addSubViews()
         setConstrains()
     }
-
+    
 }
 
 extension RMCharacterViewController {
@@ -43,7 +43,7 @@ extension RMCharacterViewController {
     
     private func setConstrains() {
         NSLayoutConstraint.activate([
-        
+            
             characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             characterListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             characterListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -58,10 +58,21 @@ extension RMCharacterViewController {
 extension RMCharacterViewController: RMCharacterListViewDelegate {
     
     func rmCharacterListView(_ characterListView: RMCharacteListView, didSelectCharacter character: RMCharacter) {
+        
         let viewModel = RMCharacterDetailViewViewModel(character: character)
         let detailVC = RMCharacterDetailViewController(viewModel: viewModel)
         detailVC.navigationItem.largeTitleDisplayMode = .never
+        /// Presenting the Alert of chosen character
+        RMAlertControllerManager.shared.showSelectedCharacterAlert(url: character.image, vc: self)
         
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.45) {
+            CATransaction.begin()
+            let transition = CATransition()
+            transition.duration = 0.25
+            transition.type = CATransitionType.fade
+            self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+            CATransaction.commit()
+            self.navigationController?.pushViewController(detailVC, animated: false)
+        }
     }
 }

@@ -74,7 +74,7 @@ extension RMTabViewController: UITabBarControllerDelegate {
     /// TabBar Loking
     private func setTabBarAppearance() {
         let positionOnX: CGFloat = 10
-        let positionOnY: CGFloat = 14
+        let positionOnY: CGFloat = 13
         let width = tabBar.bounds.width - positionOnX * 2
         let height = tabBar.bounds.height + positionOnY * 2
         
@@ -90,15 +90,13 @@ extension RMTabViewController: UITabBarControllerDelegate {
             cornerRadius: height / 4
         )
         
+        roundLayer.fillColor = UIColor.secondarySystemBackground.cgColor
         roundLayer.path = bezierPath.cgPath
         
+        tabBar.backgroundColor = .systemBackground
         tabBar.layer.insertSublayer(roundLayer, at: 0)
-        
         tabBar.itemWidth = width / 5
         tabBar.itemPositioning = .centered
-        
-        roundLayer.fillColor = UIColor.secondarySystemBackground.cgColor
-        
         tabBar.layer.masksToBounds = false
         tabBar.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
         tabBar.layer.shadowOffset = CGSize(width: -4, height: -6)

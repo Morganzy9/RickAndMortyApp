@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
+final class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
     
     //  MARK: - UI
     
