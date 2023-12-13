@@ -32,7 +32,7 @@ final class RMAlertChoosenCharacter: UIView {
     
     private var myRagetView: UIView?
     
-    func showAlert(title: String, message: String, image: Data, viewController: UIViewController) {
+    func showAlert(image: Data, viewController: UIViewController) {
         guard let targetView = viewController.view else { return }
         
         myRagetView = targetView
@@ -60,7 +60,7 @@ final class RMAlertChoosenCharacter: UIView {
     private func selecationAnimation() {
         guard let targetView = myRagetView else { return }
         
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.4) {
             self.alertView.center = targetView.center
         } completion: { done in
             // Calculate the maximum scale factor to fit within the target view
@@ -81,7 +81,7 @@ final class RMAlertChoosenCharacter: UIView {
     private func dismissAlert() {
         guard let targetView = myRagetView else { return }
         
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.3) {
             self.alertView.frame = CGRect(x: 40,
                                           y: targetView.frame.size.height,
                                           width: targetView.frame.size.width - 80,
@@ -90,11 +90,9 @@ final class RMAlertChoosenCharacter: UIView {
             if done {
                 UIView.animate(withDuration: 0.01) {
                     self.alertBackGroundView.alpha = 0
-                } completion: { done in
-                    guard done else { return }
                     self.alertView.removeFromSuperview()
                     self.alertBackGroundView.removeFromSuperview()
-                }
+                } 
             }
         }
     }
