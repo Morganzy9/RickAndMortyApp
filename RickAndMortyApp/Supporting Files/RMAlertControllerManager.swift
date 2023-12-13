@@ -11,6 +11,7 @@ protocol RMAlertControllerManagerProtocol: AnyObject {
     
     func showAlert(title: String, message: String) -> UIAlertController
     func showAlertQuestion(title: String, message: String, completionBlock: @escaping(Bool) -> Void) -> UIAlertController
+    func showSelectedCharacterAlert(url: String, vc: UIViewController)
     
 }
 
