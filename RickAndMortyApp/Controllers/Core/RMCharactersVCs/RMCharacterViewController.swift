@@ -65,7 +65,7 @@ extension RMCharacterViewController: RMCharacterListViewDelegate {
         /// Presenting the Alert of chosen character
         RMAlertControllerManager.shared.showSelectedCharacterAlert(url: character.image, vc: self)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.399) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.45) {
             CATransaction.begin()
             let transition = CATransition()
             transition.duration = 0.25
